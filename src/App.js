@@ -6,41 +6,45 @@ import './App.css'
 
 
 class BooksApp extends React.Component {
-  state = {
-    
+  state = {    
     books:[
-      {
-          "ISBN":"1593273894",
-          "title":"The Linux Command Line",
-          "backImg":"url('http://books.google.com/books/content?id=nggnmAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api')",
-          "author":"William E. Shotts, Jr.",
-          "shelf":"currentlyReading"
-      },
-      {
-          "ISBN":"1593273895",
-          "title":"The Linux Command Line",
-          "backImg":"url('http://books.google.com/books/content?id=nggnmAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api')",
-          "author":"William E. Shotts, Jr.",
-          "shelf":"currentlyReading"
-      },
-      {
-          "ISBN":"1593273896",
-          "title":"2The Linux Command Line",
-          "backImg":"url('http://books.google.com/books/content?id=nggnmAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api')",
-          "author":"William E. Shotts, Jr.",
-          "shelf":"wantToRead"
-      },
-      {
-          "ISBN":"1593273897",
-          "title":"3The Linux Command Line",
-          "backImg":"url('http://books.google.com/books/content?id=nggnmAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api')",
-          "author":"William E. Shotts, Jr.",
-          "shelf":"read"
-      }
+    //   {
+    //       "ISBN":"1593273894",
+    //       "title":"The Linux Command Line",
+    //       "backImg":"url('http://books.google.com/books/content?id=nggnmAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api')",
+    //       "author":"William E. Shotts, Jr.",
+    //       "shelf":"currentlyReading"
+    //   },
+    //   {
+    //       "ISBN":"1593273895",
+    //       "title":"The Linux Command Line",
+    //       "backImg":"url('http://books.google.com/books/content?id=nggnmAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api')",
+    //       "author":"William E. Shotts, Jr.",
+    //       "shelf":"currentlyReading"
+    //   },
+    //   {
+    //       "ISBN":"1593273896",
+    //       "title":"2The Linux Command Line",
+    //       "backImg":"url('http://books.google.com/books/content?id=nggnmAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api')",
+    //       "author":"William E. Shotts, Jr.",
+    //       "shelf":"wantToRead"
+    //   },
+    //   {
+    //       "ISBN":"1593273897",
+    //       "title":"3The Linux Command Line",
+    //       "backImg":"url('http://books.google.com/books/content?id=nggnmAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api')",
+    //       "author":"William E. Shotts, Jr.",
+    //       "shelf":"read"
+    //   }
   ],
     showSearchPage: false
   }
 
+  componentDidMount(){
+    BooksAPI.getAll().then((books) => {
+      this.setState({ books })
+    })
+  }
   
   render() {
     return (
@@ -52,8 +56,7 @@ class BooksApp extends React.Component {
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
-            <ListBooksContent books={this.state.books}/>    
-            {console.log(BooksAPI.getAll())}
+            <ListBooksContent books={this.state.books}/>   
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
             </div>

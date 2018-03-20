@@ -14,10 +14,10 @@ class ListBooksContent extends React.Component{
                   <div className="bookshelf-books">
                     <ol className="books-grid">
                       {this.props.books.filter( book => book.shelf === 'currentlyReading').map((book) => { return (
-                          <li key={book.ISBN}>
+                          <li key={book.industryIdentifiers[0].identifier}>
                           <div className="book">
                           <div className="book-top">
-                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: book.backImg }}></div>
+                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: "url('"+book.imageLinks.thumbnail+"')" }}></div>
                             <div className="book-shelf-changer">
                               <select>
                                 <option value="none" disabled>Move to...</option>
@@ -42,10 +42,10 @@ class ListBooksContent extends React.Component{
                   <div className="bookshelf-books">
                     <ol className="books-grid">
                     {this.props.books.filter(book=>book.shelf==='wantToRead').map((book)=>{return(
-                        <li key={book.ISBN}>
+                        <li key={book.industryIdentifiers[0].identifier}>
                         <div className="book">
                           <div className="book-top">
-                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: book.backImg }}></div>
+                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: "url('"+book.imageLinks.thumbnail+"')" }}></div>
                             <div className="book-shelf-changer">
                               <select>
                                 <option value="none" disabled>Move to...</option>
@@ -57,7 +57,7 @@ class ListBooksContent extends React.Component{
                             </div>
                           </div>
                           <div className="book-title">{book.title}</div>
-                          <div className="book-authors">{book.author}</div>
+                          <div className="book-authors">{book.authors}</div>
                         </div>
                       </li>
                     )})}
@@ -69,10 +69,10 @@ class ListBooksContent extends React.Component{
                   <div className="bookshelf-books">
                     <ol className="books-grid">
                     {this.props.books.filter(book=>book.shelf==='read').map((book)=>{return(
-                        <li key={book.ISBN}>
+                        <li key={book.industryIdentifiers[0].identifier}>
                         <div className="book">
                           <div className="book-top">
-                            <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: book.backImg }}></div>
+                            <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: "url('"+book.imageLinks.thumbnail+"')" }}></div>
                             <div className="book-shelf-changer">
                               <select>
                                 <option value="none" disabled>Move to...</option>
@@ -84,7 +84,7 @@ class ListBooksContent extends React.Component{
                             </div>
                           </div>
                           <div className="book-title">{book.title}</div>
-                          <div className="book-authors">{book.author}</div>
+                          <div className="book-authors">{book.authors}</div>
                         </div>
                       </li>
                     )})}
