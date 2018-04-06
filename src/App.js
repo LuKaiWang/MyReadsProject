@@ -39,13 +39,13 @@ class BooksApp extends React.Component {
     }))
   }
 
-  //从搜索结果中添加
+  //从搜索结果中添加书籍并更新状态
   addOrModifyShelf = (bo,shelf)=> {
-    BooksAPI.update(bo,shelf).then( (data) =>{ 
+    BooksAPI.update(bo,shelf).then((data) =>{ 
       console.log(data) 
       return data.books} 
     ).then((initBooks) => {
-     // this.setState({ books: initBooks.map(this.simpleBook)})
+      //this.setState({ books: initBooks.map(this.simpleBook)})
     })
     //add new
     if(bo.shelf==="none"){

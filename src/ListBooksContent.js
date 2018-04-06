@@ -13,7 +13,7 @@ class ListBooksContent extends React.Component{
                   <h2 className="bookshelf-title">Currently Reading</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
-                    {console.log(this.props.books)}
+                    {/* {console.log(this.props.books)} */}
                       {this.props.books.filter( book => book.shelf === 'currentlyReading').map((book) => { return (
                           <li key={book.id}>
                           <div className="book">
