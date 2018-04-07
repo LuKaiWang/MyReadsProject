@@ -13,58 +13,30 @@ class BooksApp extends React.Component {
     books:[]
   }
 
-  simpleBook(book){
-    return {title:book.title,
-            authors:book.authors,
-            thumbnail:book.imageLinks.thumbnail,
-            shelf:book.shelf,
-            id:book.industryIdentifiers[0].identifier}
-  }
-
   componentDidMount(){
-    BooksAPI.getAll().then((initBooks) => {
-      this.setState({ books: initBooks.map(this.simpleBook)})
+    BooksAPI.getAll().then((books) => {
+      this.setState({books})
     })
   }
   
-  //更新book状态
-  modifyShelf = (title,value)=> {
-    this.setState((state)=>({
-      books:state.books.map((book) => {
-        if(book.title===title){
-          book.shelf = value
-        }
-        return book
-      }) 
-    }))
-  }
-
-  //从搜索结果中添加书籍并更新状态
-  addOrModifyShelf = (bo,shelf)=> {
-    BooksAPI.update(bo,shelf).then((data) =>{ 
-      console.log(data) 
-      return data.books} 
-    ).then((initBooks) => {
-      //this.setState({ books: initBooks.map(this.simpleBook)})
-    })
-    //add new
-    if(bo.shelf==="none"){
-      bo.shelf = shelf;      
-      this.setState((state)=>{
-       var newBooks = state.books
-        newBooks.push(bo)
-        return newBooks        
-      })
-    }else{
-      this.setState((state)=>({
-        books:state.books.map((book) => {
-          if(book.id===bo.id){
-            book.shelf = shelf
+  //更改book状态
+  changeShelf = (book,shelf)=> {
+    BooksAPI.update(book,shelf).then(
+        this.setState((state)=>{
+          if (book.shelf==='none') {
+            let bo = book
+            bo.shelf = shelf
+            state.books.push(bo)
+          } else {
+            state.books.map((bo) => {
+              if(bo===book){
+                book.shelf = shelf
+              }
+              return bo
+            }) 
           }
-          return book
-        }) 
-      }))
-    }
+        })
+    )
   }
 
   render() {
@@ -75,14 +47,14 @@ class BooksApp extends React.Component {
           <div className="list-books-title">
             <h1>MyReads</h1>
           </div>
-        <ListBooksContent onChangeShelf={this.modifyShelf} books={this.state.books}/>   
+        <ListBooksContent onChangeShelf={this.changeShelf} books={this.state.books}/>   
           <div className="open-search">
             <Link to="/search">Add a book</Link>
          </div>
       </div>
       )}/>
       <Route exact path="/search" render={()=>(
-        <SearchBooks onChangeShelf={this.addOrModifyShelf} books={this.state.books}/>
+        <SearchBooks onChangeShelf={this.changeShelf} books={this.state.books}/>
       )}/>
       </div>
     )
